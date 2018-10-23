@@ -155,4 +155,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<modules>
+		<module>wx_hitao_goods</module>
+		<module>wx_hitao_gateway</module>
+		<module>wx_hitao_commons</module>
+		<module>wx_hitao_authc</module>	
+		<module>wx_hitao_order</module>
+	</modules>
 </project>
