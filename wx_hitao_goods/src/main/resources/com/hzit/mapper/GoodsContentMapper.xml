@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzit.mapper.GoodsContentMapper">
+    
+ 	 <!-- 分页查询数据-->
+ 	 <select id="getData" resultMap="goodsCcontentMap">
+ 	 SELECT <include refid="mysql"></include> FROM shop_goods_content
+ 	 </select>
+ 	 <!-- 根据商品id查询 -->
+ 	 <select id="findGooodsById" resultMap="goodsCcontentMap" parameterType="int">
+ 	 SELECT <include refid="mysql"></include> FROM shop_goods_content where goods_id=#{goodsId}
+ 	 </select>
+	<!-- 增加数据 -->
+	<insert id="addGoodContent" parameterType="com.entity.ShopGoodsContent">
+	insert into shop_goods_content (goods_id,content,created_time,updated_time) values(#{goodsId},#{content},#{createdTime},#{updatedTime})
+	</insert>
+	<!-- 修改商品信息 -->
+	<update id="updateGoodsContent" parameterType="com.entity.ShopGoodsContent">
+	UPDATE shop_goods_content set content=#{content},created_time=#{createdTime},updated_time=#{updatedTime} WHERE goods_id=#{goodsId}
+	</update>
+	<!-- 物理删除数据 -->
+	<delete id="deleteGoodsContent" parameterType="int">
+	delete from shop_goods_content where goods_id=#{goodsId}
+	</delete>
+	
+	<!-- 逻辑删除 -->
+	<update id="isDel" parameterType="com.entity.ShopGoodsContent">
+	update shop_goods_content set is_del=#{isDel} where goods_id=#{goodsId}
+	</update>
+	
+ 	<sql id="mysql">
+ 	goods_id,content,created_time,updated_time
+ 	</sql>
+ 	<resultMap type="com.entity.ShopGoodsContent" id="goodsCcontentMap">
+ 	    <id column="goods_id" property="goodsId"/>
+ 	    <result column="content" property="content"/>
+ 		<result column="created_time" property="createdTime"/>
+ 		<result column="updated_time" property="updatedTime"/>
+ 	</resultMap>
+</mapper>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzit.mapper.ShopAreaMapper">
+<!--shop_area表中的列-->
+	<sql id="shopAreaBaseColumn">
+		area_id,
+		area_name,
+		area_parent_id,
+		area_sort,
+		post_code,
+		area_deep,
+		is_del,
+		created_time,
+		updated_time
+	</sql>
+		<!-- 基础查询条件 -->
+	<sql id="shopAreaBaseWhereSql">
+	        <if test="map!=null">
+            <where>
+                <if test="areaId !=null">
+                    AND area_id = #{areaId}
+                </if>
+                <if test="areaName !=null">
+                    AND area_name = #{areaName}
+                </if>
+                <if test="areaParentId !=null">
+                    AND area_parent_id = #{areaParentId}
+                </if>
+                <if test="areaSort !=null">
+                    AND area_sort = #{areaSort}
+                </if>
+                <if test="postCode !=null">
+                    AND post_code = #{postCode}
+                </if>
+                <if test="areaDeep !=null">
+                    AND area_deep = #{areaDeep}
+                </if>
+                <if test="isDel !=null">
+                    AND is_del = #{isDel}
+                </if>
+                <if test="createdTime !=null">
+                    AND created_time = #{createdTime}
+                </if>
+                <if test="updatedTime !=null">
+                    AND updated_time = #{updatedTime}
+                </if>
+            </where>
+        </if>
+	</sql>
+	<!-- 添加 -->
+	<insert id="addShopArea" parameterType="com.entity.ShopArea">
+		insert into shop_area
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="areaId != null">
+				area_id,
+			</if>
+			<if test="areaName != null">
+				area_name,
+			</if>
+			<if test="areaParentId != null">
+				area_parent_id,
+			</if>
+			<if test="areaSort != null">
+				area_sort,
+			</if>
+			<if test="postCode != null">
+				post_code,
+			</if>
+			<if test="areaDeep != null">
+				area_deep,
+			</if>
+			<if test="isDel != null">
+				is_del,
+			</if>
+			<if test="createdTime != null">
+				created_time,
+			</if>
+			<if test="updatedTime != null">
+				updated_time,
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")"  suffixOverrides=",">
+			<if test="areaId != null">
+				#{areaId},
+			</if>
+			<if test="areaName != null">
+				#{areaName},
+			</if>
+			<if test="areaParentId != null">
+				#{areaParentId},
+			</if>
+			<if test="areaSort != null">
+				#{areaSort},
+			</if>
+			<if test="postCode != null">
+				#{postCode},
+			</if>
+			<if test="areaDeep != null">
+				#{areaDeep},
+			</if>
+			<if test="isDel != null">
+				#{isDel},
+			</if>
+			<if test="createdTime != null">
+				#{createdTime},
+			</if>
+			<if test="updatedTime != null">
+				#{updatedTime},
+			</if>
+		</trim>
+	</insert>
+	<!-- 根据ID删除数据 -->
+    <delete id="deleteById"  parameterType="integer" >
+        DELETE FROM  shop_area WHERE
+        area_id = #{areaId}
+    </delete>
+	<!-- 根据ID批量数据 -->
+	<delete id="deleteByIds" parameterType="java.lang.String">
+		delete from shop_area where area_id in
+		<foreach item="idItem" collection="array" open="("
+			separator="," close=")">
+			#{idItem}
+		</foreach>
+	</delete>
+	<!-- 根据ID更新数据 -->
+	<update id="updateById" parameterType="com.entity.ShopArea">
+		update shop_area
+		<set>
+			area_id=#{areaId},
+			area_name=#{areaName},
+			area_parent_id=#{areaParentId},
+			area_sort=#{areaSort},
+			post_code=#{postCode},
+			area_deep=#{areaDeep},
+			is_del=#{isDel},
+			created_time=#{createdTime},
+			updated_time=#{updatedTime}
+		</set>
+		where area_id = #{areaId}
+	</update>
+	<update id="updateSelectiveById"
+		parameterType="com.entity.ShopArea">
+		update shop_area
+		<set>
+			<if test="areaId != null">
+				area_id = #{areaId},
+			</if>
+			<if test="areaName != null">
+				area_name = #{areaName},
+			</if>
+			<if test="areaParentId != null">
+				area_parent_id = #{areaParentId},
+			</if>
+			<if test="areaSort != null">
+				area_sort = #{areaSort},
+			</if>
+			<if test="postCode != null">
+				post_code = #{postCode},
+			</if>
+			<if test="areaDeep != null">
+				area_deep = #{areaDeep},
+			</if>
+			<if test="isDel != null">
+				is_del = #{isDel},
+			</if>
+			<if test="createdTime != null">
+				created_time = #{createdTime},
+			</if>
+			<if test="updatedTime != null">
+				updated_time = #{updatedTime},
+			</if>
+		</set>
+		where area_id=#{areaId}
+	</update>
+	<!-- 根据ID查询一条数据 -->
+	<select id="findOne" resultMap="shopAreaMap"
+		parameterType="integer">
+		select
+		<include refid="shopAreaBaseColumn"></include>
+		from shop_area where area_id = #{areaId}
+	</select>
+	<!-- 根据对象查询 -->
+	<select id="searchShopArea"  parameterType="map"  resultMap="shopAreaMap">
+	select	<include refid="shopAreaBaseColumn" ></include>
+	from shop_area 
+	 <include refid="shopAreaBaseWhereSql"></include>
+	</select>
+	
+
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="shopAreaMap" type="com.entity.ShopArea">
+		<id column="area_id" property="areaId" />
+		<result column="area_name" property="areaName" />
+		<result column="area_parent_id" property="areaParentId" />
+		<result column="area_sort" property="areaSort" />
+		<result column="post_code" property="postCode" />
+		<result column="area_deep" property="areaDeep" />
+		<result column="is_del" property="isDel" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_time" property="updatedTime" />
+	</resultMap>
+
+
+</mapper>

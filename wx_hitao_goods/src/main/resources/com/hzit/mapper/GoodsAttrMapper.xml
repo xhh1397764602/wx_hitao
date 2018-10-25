@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzit.mapper.GoodsAttrMapper">
+    
+ 	 <!-- 分页查询数据-->
+ 	 <select id="getData" resultMap="goodsAttrMap">
+ 	 SELECT <include refid="mysql"></include> FROM shop_goods_attr
+ 	 </select>
+ 	  <!-- 根据商品id查询 -->
+ 	 <select id="findGooodsById" resultMap="goodsAttrMap" parameterType="int">
+ 	 SELECT <include refid="mysql"></include> FROM shop_goods_attr where goods_id=#{goodsId}
+ 	 </select>
+	<!-- 增加数据 -->
+	<insert id="addGoodAttr" parameterType="com.entity.ShopGoodsAttr">
+	insert into shop_goods_attr (goods_id,cat_id,attr_id,attr_value,created_time,updated_time) values(#{goodsId},#{catId},#{attrId},#{attrValue},#{createdTime},#{updatedTime})
+	</insert>
+	<!-- 修改商品信息 -->
+	<update id="updateGoodAttr" parameterType="com.entity.ShopGoodsAttr">
+	UPDATE shop_goods_attr set cat_id=#{catId},attr_id=#{attrId},attr_value=#{attrValue},created_time=#{createdTime},updated_time=#{updatedTime} WHERE goods_id=#{goodsId}
+	</update>
+	<!-- 物理删除数据 -->
+	<delete id="deleteGoodsAttr" parameterType="int">
+	delete from shop_goods_attr where goods_id=#{goodsId}
+	</delete>
+	
+	<!-- 逻辑删除 -->
+	<update id="isDel" parameterType="com.entity.ShopGoodsAttr">
+	update shop_goods_attr set is_del=#{isDel} where goods_id=#{goodsId}
+	</update>
+	
+ 	<sql id="mysql">
+ 	goods_id,cat_id,attr_id,attr_value,is_del,created_time,updated_time
+ 	</sql>
+ 	<resultMap type="com.entity.ShopGoodsAttr" id="goodsAttrMap">
+ 	    <id column="goods_id" property="goodsId"/>
+ 	   <result column="cat_id" property="catId"/>
+ 	    <result column="attr_id" property="attrId"/>
+ 	     <result column="attr_value" property="attrValue"/>
+ 		<result column="is_del" property="isDel"/>
+ 		<result column="created_time" property="createdTime"/>
+ 		<result column="updated_time" property="updatedTime"/>
+ 	</resultMap>
+</mapper>

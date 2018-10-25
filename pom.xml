@@ -161,5 +161,7 @@
 		<module>wx_hitao_commons</module>
 		<module>wx_hitao_authc</module>	
 		<module>wx_hitao_order</module>
+		<module>wx_hitao_member</module>
+		<module>wx_hitao_upload</module>
 	</modules>
 </project>

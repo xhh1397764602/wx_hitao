@@ -5,13 +5,18 @@
     <artifactId>wx_hitao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>wx_hitao_commons</artifactId>
-   <dependencies>
-  <!--jwt组件-->
-    <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.2.0</version>
-        </dependency>
+  <artifactId>wx_hitao_upload</artifactId>
+  <dependencies>
+  <dependency>
+				<groupId>com.hzit.wx_hitao</groupId>
+				<artifactId>wx_hitao_commons</artifactId>
+				<version> ${project.version}</version>
+			</dependency>
+  <!-- 使用阿里css -->
+  <dependency>
+    <groupId>com.aliyun.oss</groupId>
+    <artifactId>aliyun-sdk-oss</artifactId>
+    <version>2.8.3</version>
+    </dependency>
   </dependencies>
 </project>

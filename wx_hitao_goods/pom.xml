@@ -6,4 +6,22 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>wx_hitao_goods</artifactId>
+  <dependencies>
+     <dependency>
+				<groupId>com.hzit.wx_hitao</groupId>
+				<artifactId>wx_hitao_commons</artifactId>
+				<version> ${project.version}</version>
+			</dependency>
+			<!-- fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.47</version>
+</dependency>
+<!-- redis使用 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+  </dependencies>
 </project>
